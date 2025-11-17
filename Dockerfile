@@ -1,4 +1,4 @@
-FROM openjdk:17-jdk-slim
+FROM openjdk:17-ea-slim
 
 COPY build/libs/*.jar app.jar
 
