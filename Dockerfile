@@ -1,5 +1,9 @@
+FROM gradle:8.3-jdk17 AS build
+WORKDIR /app
+COPY . .
+RUN gradle bootJar --no-daemon
+
 FROM openjdk:17-ea-slim
-
-COPY build/libs/*.jar app.jar
-
-ENTRYPOINT [ "java", "-jar", "/app.jar" ]
+WORKDIR /app
+COPY --from=build /app/build/libs/*.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
